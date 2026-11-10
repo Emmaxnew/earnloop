@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#08111f">
+<title>EarnLoop — Rewards That Go Around</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #08111f;
+    color: white;
+    line-height: 1.6;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 8%;
+    border-bottom: 1px solid #1b293a;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.logo span {
+    color: #35dc91;
+}
+
+nav a {
+    color: #b8c4d3;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px 85px;
+    max-width: 850px;
+    margin: auto;
+}
+
+.badge {
+    display: inline-block;
+    color: #35dc91;
+    background: #102d27;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 12px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    font-size: clamp(40px, 7vw, 68px);
+    line-height: 1.08;
+    letter-spacing: -3px;
+    margin-bottom: 22px;
+}
+
+h1 span {
+    color: #35dc91;
+}
+
+.hero p {
+    color: #aab7c7;
+    font-size: 17px;
+    max-width: 600px;
+    margin: auto;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 32px;
+    padding: 15px 30px;
+    background: #35dc91;
+    color: #07151a;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.section {
+    padding: 65px 8%;
+    text-align: center;
+}
+
+.section h2 {
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.subtitle {
+    color: #aab7c7;
+    margin-bottom: 40px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.card {
+    background: #101d2d;
+    border: 1px solid #1e3044;
+    padding: 30px 22px;
+    border-radius: 14px;
+    text-align: left;
+}
+
+.icon {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #aab7c7;
+    font-size: 14px;
+}
+
+.notice {
+    max-width: 800px;
+    margin: 30px auto 0;
+    padding: 20px;
+    border: 1px solid #1e3044;
+    border-radius: 12px;
+    color: #aab7c7;
+    font-size: 14px;
+}
+
+footer {
+    border-top: 1px solid #1b293a;
+    padding: 30px 15px;
+    text-align: center;
+    color: #8291a4;
+    font-size: 13px;
+}
+
+footer span {
+    color: #35dc91;
+}
+
+@media(max-width: 600px) {
+    header {
+        padding: 18px 5%;
+    }
+
+    nav a {
+        margin-left: 12px;
+        font-size: 12px;
+    }
+
+    .hero {
+        padding-top: 75px;
+    }
+
+    h1 {
+        letter-spacing: -2px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Earn<span>Loop</span></div>
+    <nav>
+        <a href="#how">How it works</a>
+        <a href="#about">About</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="badge">A new way to share rewards</div>
+
+    <h1>Watch. Engage.<br><span>Get rewarded.</span></h1>
+
+    <p>
+        EarnLoop is building a rewards platform where people
+        can earn a share of eligible advertising and sponsored
+        content revenue.
+    </p>
+
+    <a href="#how" class="button">Discover EarnLoop</a>
+</section>
+
+<section class="section" id="how">
+    <h2>How EarnLoop Works</h2>
+    <p class="subtitle">A simple idea built around shared value.</p>
+
+    <div class="cards">
+
+        <div class="card">
+            <div class="icon">📺</div>
+            <h3>Discover</h3>
+            <p>Explore sponsored videos, advertisements and eligible offers.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">⚡</div>
+            <h3>Participate</h3>
+            <p>Complete activities that qualify for rewards under our platform rules.</p>
+        </div>
+
+        <div class="card">
+            <div class="icon">💰</div>
+            <h3>Get rewarded</h3>
+            <p>Receive eligible rewards when advertising revenue is verified and available.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="section" id="about">
+    <h2>Rewards should create value.</h2>
+    <p class="subtitle">
+        Our goal is to build a transparent platform that benefits
+        both advertisers and participating users.
+    </p>
+
+    <div class="notice">
+        EarnLoop is currently under development. Advertising
+        partnerships, reward funding, user accounts and withdrawals
+        are not yet active. No earnings or payouts are guaranteed
+        at this stage.
+    </div>
+</section>
+
+<footer>
+    © 2026 <span>EarnLoop</span>. Built around shared value.
+</footer>
+
+</body>
+</html>
