@@ -47,6 +47,15 @@ async function startEarnLoop() {
                 <h3 style="margin-top:25px">Recent transactions</h3>
                 <div id="transactions">No transactions yet.</div>
 
+                <h3 style="margin-top:30px">Sponsored Campaigns</h3>
+<p style="color:#aab7c7;margin:10px 0">
+    Discover opportunities to earn rewards.
+</p>
+
+<div id="campaigns">
+    Loading campaigns...
+</div>
+
                 <button id="refresh" class="button">Refresh balance</button>
                 <button id="logout" class="button">Sign out</button>
             </div>
