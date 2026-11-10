@@ -21,149 +21,55 @@ async function startEarnLoop() {
         <h2>EarnLoop Account</h2>
         <p class="subtitle">Your account and rewards overview.</p>
 
-        <div style="max-width:500px;margin:auto;background:#101d2d;padding:25px;border-radius:14px">
+        <div style="max-width:520px;margin:auto;background:#101d2d;padding:25px;border-radius:14px;text-align:left">
 
             <div id="authForm">
-                <input id="email" type="email" placeholder="Email address"
-                style="width:100%;padding:14px;margin-bottom:12px">
+                <h3>Welcome to EarnLoop!</h3>
+                <p style="color:#aab7c7;margin:10px 0 20px">
+                    Sign in or create your account.
+                </p>
 
-                <input id="password" type="password" placeholder="Password"
-                style="width:100%;padding:14px;margin-bottom:12px">
+                <input id="email" type="email"
+                    placeholder="Email address"
+                    autocomplete="email"
+                    style="width:100%;padding:14px;margin-bottom:12px">
 
-                <button id="signup" class="button">Create account</button>
-                <button id="login" class="button">Sign in</button>
+                <input id="password" type="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    style="width:100%;padding:14px;margin-bottom:12px">
+
+                <button id="signup" class="button"
+                    style="border:0;cursor:pointer">
+                    Create account
+                </button>
+
+                <button id="login" class="button"
+                    style="background:#263c50;color:white;border:0;cursor:pointer">
+                    Sign in
+                </button>
             </div>
 
-            <div id="dashboard" style="display:none;text-align:left">
+            <div id="dashboard" style="display:none">
                 <h3>Welcome to EarnLoop!</h3>
-                <p id="userEmail"></p>
+                <p id="userEmail" style="color:#aab7c7;margin-top:8px"></p>
 
                 <div style="background:#08111f;padding:20px;border-radius:12px;margin-top:20px">
                     <p>Available balance</p>
                     <h2 id="balance">$0.00</h2>
-                    <p>Total earned: <span id="lifetime">$0.00</span></p>
+                    <p>Total earned:
+                        <strong id="lifetime">$0.00</strong>
+                    </p>
                 </div>
 
                 <h3 style="margin-top:25px">Recent transactions</h3>
-                <div id="transactions">No transactions yet.</div>
+                <div id="transactions" style="margin-top:12px">
+                    Loading transactions...
+                </div>
 
                 <h3 style="margin-top:30px">Sponsored Campaigns</h3>
-<p style="color:#aab7c7;margin:10px 0">
-    Discover opportunities to earn rewards.
-</p>
+                <p style="color:#aab7c7;margin:10px 0">
+                    Discover opportunities to earn rewards.
+                </p>
 
-<div id="campaigns">
-    Loading campaigns...
-</div>
-
-                <button id="refresh" class="button">Refresh balance</button>
-                <button id="logout" class="button">Sign out</button>
-            </div>
-
-            <p id="message" style="margin-top:18px;color:#35dc91"></p>
-        </div>
-    `;
-
-    document.querySelector("footer").before(section);
-
-    const message = document.getElementById("message");
-
-    async function loadDashboard() {
-        const { data: { user } } = await supabase.auth.getUser();
-
-        if (!user) {
-            document.getElementById("authForm").style.display = "block";
-            document.getElementById("dashboard").style.display = "none";
-            return;
-        }
-
-        document.getElementById("authForm").style.display = "none";
-        document.getElementById("dashboard").style.display = "block";
-        document.getElementById("userEmail").textContent = user.email;
-
-        const { data: account, error } = await supabase
-            .from("reward_accounts")
-            .select("balance_cents,lifetime_earned_cents")
-            .eq("user_id", user.id)
-            .single();
-
-        if (error) {
-            message.textContent = "Could not load rewards: " + error.message;
-            return;
-        }
-
-        document.getElementById("balance").textContent =
-            "$" + (Number(account.balance_cents) / 100).toFixed(2);
-
-        document.getElementById("lifetime").textContent =
-            "$" + (Number(account.lifetime_earned_cents) / 100).toFixed(2);
-
-        const { data: transactions, error: transactionError } =
-            await supabase
-                .from("reward_transactions")
-                .select("amount_cents,transaction_type,description,created_at")
-                .eq("user_id", user.id)
-                .order("created_at", { ascending: false })
-                .limit(10);
-
-        if (transactionError) {
-            document.getElementById("transactions").textContent =
-                "Could not load transactions.";
-            return;
-        }
-
-        document.getElementById("transactions").innerHTML =
-            transactions.length
-                ? transactions.map(item => `
-                    <div style="padding:12px 0;border-bottom:1px solid #263c50">
-                        <strong>${escapeHTML(item.transaction_type)}</strong>
-                        <p>${escapeHTML(item.description || "")}</p>
-                        <small>$${(Number(item.amount_cents) / 100).toFixed(2)}</small>
-                    </div>
-                `).join("")
-                : "No transactions yet.";
-    }
-
-    function escapeHTML(value) {
-        return String(value).replace(/[&<>"']/g, character => ({
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#39;"
-        })[character]);
-    }
-
-    document.getElementById("signup").onclick = async () => {
-        const { error } = await supabase.auth.signUp({
-            email: document.getElementById("email").value.trim(),
-            password: document.getElementById("password").value
-        });
-
-        message.textContent = error
-            ? error.message
-            : "Check your email to confirm your account.";
-    };
-
-    document.getElementById("login").onclick = async () => {
-        const { error } = await supabase.auth.signInWithPassword({
-            email: document.getElementById("email").value.trim(),
-            password: document.getElementById("password").value
-        });
-
-        message.textContent = error ? error.message : "Signed in successfully!";
-        if (!error) await loadDashboard();
-    };
-
-    document.getElementById("logout").onclick = async () => {
-        await supabase.auth.signOut();
-        message.textContent = "You have signed out.";
-        await loadDashboard();
-    };
-
-    document.getElementById("refresh").onclick = loadDashboard;
-
-    await loadDashboard();
-}
-
-startEarnLoop().catch(error => console.error(error));
+               
